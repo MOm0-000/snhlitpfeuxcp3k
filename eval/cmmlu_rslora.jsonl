@@ -8,7 +8,7 @@
 {"src": ["C程序的组成是\nA. 若⼲⼦程序\nB. 语句\nC. 循环体\nD. 若⼲过程"], "tgt": ["B"], "pred": "B"}
 {"src": ["你刚创建了⼀个扩展访问列表101,现在你想把它应⽤到接⼝上,通过以下哪条命令你可以把它应⽤到接⼝上\nA. pemit access-list 101 out\nB. access-list 101 out\nC. apply access-list 101 out\nD. ip access-group 101 out"], "tgt": ["D"], "pred": "D"}
 {"src": ["CPU包括哪两部分\nA. ALU和主存储器\nB. ALU和控制器\nC. 运算器和控制器\nD. ALU和累加器"], "tgt": ["C"], "pred": "B"}
-{"src": ["线性表顺序存储时，逻辑上相邻的两个数据元素，其存储地址\nA. ⼀定不相邻\nB. ⼀定相邻\nC. 不⼀定相邻\nD. 可能不相邻"], "tgt": ["B"], "pred": "D"}
+{"src": ["线性表顺序存储时，逻辑上相邻的两个数据元素，其存储地址\nA. ⼀定不相邻\nB. ⼀定相邻\nC. 不⼀定相邻\nD. 可能不相邻"], "tgt": ["B"], "pred": "C"}
 {"src": ["在计算机内部⽤机内码⽽不⽤国标码表示汉字的原因是\nA. 有些汉字的国标码不唯⼀，⽽机内码唯⼀\nB. 在有些情况下，国标码有可能造成误解\nC. 国标码是国家标准，⽽机内码是国际标准\nD. 机内码⽐国标码容易表示"], "tgt": ["B"], "pred": "B"}
 {"src": ["计费服务器的ip地址在192.168.1.0/24⼦⽹内，为了保证计费服务器的安全，不允许任何⽤户telnet到该服务器，则需要配置的访问列表条⽬为\nA. access-list 11 deny tcp 192.168.1.0 0.0.0.255 eq telnet/access-list 111 permit ip any any\nB. access-list 111 deny tcp any 192.168.1.0 0.0.0.255 eq\nC. access-list 111 deny tcp any 192.168.1.0 eq telnet/access-list 111 permit ip any any\nD. access-list 111 deny udp 192.168.1.0 0.0.0.255 eq telnet/access-list 111 permit ip any any"], "tgt": ["C"], "pred": "C"}
 {"src": ["使⽤⾼级语⾔编写的程序称之为\nA. 源程序\nB. 编译程序\nC. 连接程序\nD. 编辑程序"], "tgt": ["A"], "pred": "A"}
@@ -23,7 +23,7 @@
 {"src": ["⼀个包含有锐捷等多⼚商设备的交换⽹络，其VLAN中Trunk的标记⼀般应选\nA. VTP\nB. IEEE 802.1q\nC. ISL\nD. 以上都可以"], "tgt": ["C"], "pred": "B"}
 {"src": ["对⼀个⽹络管理员来说，⽹络管理的⽬标不是\nA. 为⽤户提供更丰富的服务\nB. 提⾼安全性\nC. 降低整个⽹络的运⾏费⽤\nD. 提⾼设备的利⽤率"], "tgt": ["A"], "pred": "A"}
 {"src": ["以下不属于⽆线介质的是\nA. 电磁波\nB. 微波\nC. 激光\nD. 光纤"], "tgt": ["D"], "pred": "D"}
-{"src": ["条件编译的基本形式如下: #XXX 标识符 \\n 程序段1 \\n #else \\n 程序段2  \\n #endif \\n 其中XXX可以是\nA. ifdef 或 ifndef 或 if\nB. ifdef 或 include\nC. ifdef 或 ifndef 或 define\nD. define 或 include"], "tgt": ["A"], "pred": "C"}
+{"src": ["条件编译的基本形式如下: #XXX 标识符 \\n 程序段1 \\n #else \\n 程序段2  \\n #endif \\n 其中XXX可以是\nA. ifdef 或 ifndef 或 if\nB. ifdef 或 include\nC. ifdef 或 ifndef 或 define\nD. define 或 include"], "tgt": ["A"], "pred": "A"}
 {"src": ["下列语句中，能将c定义为⽂件型指针的是\nA. FILE *c\nB. file * c\nC. file c\nD. FILEc"], "tgt": ["A"], "pred": "A"}
 {"src": ["挂接在总线上的多个部件（ ）\nA. 只能分时向总线发送数据，但可同时从总线接收数据\nB. 只能分时向总线发送数据，并只能分时从总线接收数据\nC. 可同时向总线发送数据，但只能分时从总线接收数据\nD. 可同时向总线发送数据，并同时从总线接收数据"], "tgt": ["A"], "pred": "A"}
 {"src": ["在访问列表中,有⼀条规则如下:access-list 131 permit ip any 192.168.10.0 0.0.0.255 eq ftp 在该规则中，any的意思是表示\nA. 检查⽬的地址的所有bit位\nB. 检察源地址的所有bit位\nC. 允许所有的源地址\nD. 允许255.255.255.255 0.0.0.0"], "tgt": ["C"], "pred": "C"}
@@ -45,7 +45,7 @@
 {"src": ["以下哪⼀种⽅法是减少差错的最根本⽅法\nA. 提⾼线路质量\nB. 差错检查\nC. 选择合理的编码⽅式\nD. 采⽤屏蔽"], "tgt": ["A"], "pred": "C"}
 {"src": ["操作系统按其功能关系分为系统层、管理层和（ ）三个层次\nA. ⽤户层\nB. 逻辑层\nC. 应⽤层\nD. 数据层"], "tgt": ["C"], "pred": "C"}
 {"src": ["IEEE802.1Q VLAN能⽀持的最⼤个数为\nA. 4094\nB. 256\nC. 2048\nD. 1024"], "tgt": ["A"], "pred": "A"}
-{"src": ["192.108.192.0属于哪类IP地址\nA. B类\nB. D类\nC. A类\nD. C类"], "tgt": ["D"], "pred": "C"}
+{"src": ["192.108.192.0属于哪类IP地址\nA. B类\nB. D类\nC. A类\nD. C类"], "tgt": ["D"], "pred": "A"}
 {"src": ["在Internet上⼴泛使⽤的WWW是⼀种\nA. 浏览服务模式\nB. ⽹络服务器\nC. ⽹络模式\nD. ⽹络主机"], "tgt": ["A"], "pred": "A"}
 {"src": ["汉字国标码（GB2312-80）规定的汉字编码，每个汉字⽤\nA. 四个字节表示\nB. 三个字节表示\nC. ⼆个字节表示\nD. ⼀个字节"], "tgt": ["C"], "pred": "C"}
 {"src": ["第⼀次保存Word⽂档时，系统将打开（ ）对话框\nA. 关闭\nB. 另存为\nC. 保存\nD. 新建"], "tgt": ["B"], "pred": "C"}
@@ -66,13 +66,13 @@
 {"src": ["为了以最⼩的交换次数检索最⼤的管理信息，或者说管理站要求最可能⼤的响应报⽂，SNMPv2增加的PDU是\nA. GetRequestPDU\nB. InformRequestPDU\nC. GetBulkRequestPDU\nD. SetRequestPDU"], "tgt": ["C"], "pred": "C"}
 {"src": ["世界上第⼀台电脑是在（ ）年诞⽣\nA. 1977\nB. 1946\nC. 1969\nD. 1973"], "tgt": ["B"], "pred": "B"}
 {"src": ["在Internet中的IP地址由（ ）位⼆进制数组成\nA. 16\nB. 32\nC. 64\nD. 8"], "tgt": ["B"], "pred": "B"}
-{"src": ["假如收到1000000000个码元，经检查有⼀个码元出错，则误码率为\nA. ⼗的负四次⽅\nB. ⼗的负⼆次⽅\nC. ⼗的负六次⽅\nD. ⼗的负九次⽅"], "tgt": ["D"], "pred": "D"}
+{"src": ["假如收到1000000000个码元，经检查有⼀个码元出错，则误码率为\nA. ⼗的负四次⽅\nB. ⼗的负⼆次⽅\nC. ⼗的负六次⽅\nD. ⼗的负九次⽅"], "tgt": ["D"], "pred": "A"}
 {"src": ["在OSI 7 层模型中，⽹络层的功能有\nA. 确定数据包如何转发与路由\nB. 在信道上传送⽐特流\nC. 保证数据在⽹络中的传输\nD. 建⽴端到端的连接，确保数据的传送正确⽆误"], "tgt": ["A"], "pred": "A"}
-{"src": ["新建的Excel⼯作簿中默认有（ ）张⼯作表\nA. 5\nB. 3\nC. 4\nD. 2"], "tgt": ["B"], "pred": "B"}
+{"src": ["新建的Excel⼯作簿中默认有（ ）张⼯作表\nA. 5\nB. 3\nC. 4\nD. 2"], "tgt": ["B"], "pred": "C"}
 {"src": ["浮点加减中的对阶的⽅法是\nA. 将加数的阶码调整到与被加数的阶码相同\nB. 将较⼩的⼀个阶码调整到与较⼤的⼀个阶码相同\nC. 将被加数的阶码调整到与加数的阶码相同\nD. 将较⼤的⼀个阶码调整到与较⼩的⼀个阶码相同"], "tgt": ["B"], "pred": "B"}
 {"src": ["⽤C语⾔编写的程序需要⽤（ ）程序翻译后计算机才能识别\nA. 编译\nB. 解释\nC. 汇编\nD. 连接"], "tgt": ["A"], "pred": "A"}
 {"src": ["从本质上讲，计算机病毒是⼀种\nA. 细菌\nB. 程序\nC. ⽂本\nD. 微⽣物"], "tgt": ["B"], "pred": "B"}
-{"src": ["S2126G交换机如何从flash中清除VLAN信息\nA. clear vlan flash\nB. clear flash:vlan.dat\nC. delete flash:vlan.dat\nD. delete vlan flash"], "tgt": ["C"], "pred": "C"}
+{"src": ["S2126G交换机如何从flash中清除VLAN信息\nA. clear vlan flash\nB. clear flash:vlan.dat\nC. delete flash:vlan.dat\nD. delete vlan flash"], "tgt": ["C"], "pred": "B"}
 {"src": ["汉字的拼⾳输⼊码属于汉字的\nA. 标准码\nB. ASCII码\nC. 内码\nD. 外码"], "tgt": ["D"], "pred": "D"}
 {"src": ["可被计算机直接执⾏的程序由（ ）语⾔编写的程序\nA. ⾼级\nB. 汇编\nC. 机器\nD. ⽹络"], "tgt": ["C"], "pred": "C"}
 {"src": ["要查看交换机端⼝加⼊VLAN的情况，可以通过（ ）命令来查看\nA. show interface vlan\nB. show vlan.dat\nC. show vlan\nD. show running-config"], "tgt": ["C"], "pred": "C"}
@@ -122,7 +122,7 @@
 {"src": ["对同⼀幅照⽚采⽤以下格式存储时，占⽤存储空间最⼤的格式是\nA. .GIF\nB. .JPG\nC. .BMP\nD. .TI F"], "tgt": ["C"], "pred": "C"}
 {"src": ["PING 命令使⽤了哪种ICMP\nA. Echo reply\nB. Redirect\nC. Source quench\nD. Destination unreachable"], "tgt": ["A"], "pred": "A"}
 {"src": ["串⾏接⼝是指\nA. 接⼝与系统总线之间并⾏传送，接⼝与I/O设备之间并⾏传送\nB. 接⼝与系统总线之间并⾏传送，接⼝与I/O设备之间串⾏传送\nC. 接⼝与系统总线之间串⾏传送，接⼝与I/O设备之间并⾏传送\nD. 接⼝与系统总线之间串⾏传送，接⼝与I/O设备之间串⾏传送"], "tgt": ["B"], "pred": "B"}
-{"src": ["局域⽹采⽤的双绞线为\nA. 6类UTP\nB. 3类UTP\nC. 4类UTP\nD. 5类UTP"], "tgt": ["D"], "pred": "D"}
+{"src": ["局域⽹采⽤的双绞线为\nA. 6类UTP\nB. 3类UTP\nC. 4类UTP\nD. 5类UTP"], "tgt": ["D"], "pred": "A"}
 {"src": ["下列说法正确的是\nA. 按服务⽅式分可将计算机⽹络分为客户机/服务器⽹络、⼴播式⽹络\nB. 按地理位置分可将计算机⽹络分为局域⽹、城域⽹、省域⽹、⼴域⽹\nC. 按地理位置分可将计算机⽹络分为局域⽹、城域⽹、⼴域⽹、互联⽹\nD. 按地理位置分可将计算机⽹络分为局域⽹、城域⽹、省域⽹、互联⽹"], "tgt": ["C"], "pred": "B"}
 {"src": ["DRAM存储器的中⽂含义是\nA. 动态随机存储器\nB. 动态只读存储器\nC. 静态随机存储器\nD. 静态只读存储器"], "tgt": ["A"], "pred": "A"}
 {"src": ["在Rip路由中设置管理距离是衡量⼀个路由可信度的等级，你可以通过定义管理距离来区别不同（）来源。路由器总是挑选具有最低管理距离的路由\nA. ⽹络结构信息\nB. 数据交换信息\nC. 拓扑信息\nD. 路由信息"], "tgt": ["B"], "pred": "D"}
@@ -138,7 +138,7 @@
 {"src": ["⼀个n+1位整数移码的数值范围是\nA. -2n≤x≤2n-1\nB. -2n+1\nC. -2n-1\nD. -2n+1≤x≤2n-1"], "tgt": ["A"], "pred": "D"}
 {"src": ["交换机⼯作在OSI七层的哪⼀层\nA. 三层以上\nB. 三层\nC. ⼀层\nD. ⼆层"], "tgt": ["D"], "pred": "D"}
 {"src": ["汉字系统中的汉字字库⾥存放的是汉字的\nA. 字形码\nB. 输⼊码\nC. 国标码\nD. 机内码"], "tgt": ["A"], "pred": "A"}
-{"src": ["MIB-2的结构中，Internet下⾯包括由IAB批准的所有管理对象的结点是\nA. experimental\nB. private\nC. directory\nD. mgmt"], "tgt": ["D"], "pred": "D"}
+{"src": ["MIB-2的结构中，Internet下⾯包括由IAB批准的所有管理对象的结点是\nA. experimental\nB. private\nC. directory\nD. mgmt"], "tgt": ["D"], "pred": "C"}
 {"src": ["若存储周期100ns，每次读出⼀个字节，则该存储器的数据传输率为\nA. 8×106位/秒\nB. 32×106位/秒\nC. 80×106位/秒\nD. 80Mb/秒"], "tgt": ["C"], "pred": "C"}
 {"src": ["在不修改、不违反SNMPv1管理框架的前提下，RMON规范提供了\nA. ⾏增加和⾏删除的操作\nB. 检索未知对象的操作\nC. 设置或更新变量值的操作\nD. 检索表对象操作"], "tgt": ["A"], "pred": "D"}
 {"src": ["计算机的三类总线中，不包括\nA. 控制总线\nB. 地址总线\nC. 传输总线\nD. 数据总线"], "tgt": ["C"], "pred": "C"}
@@ -155,9 +155,9 @@
 {"src": ["下列叙述中，不正确的是\nA. 算法必须在执⾏有限步后结束\nB. 同⼀问题可以有多种不同算法\nC. 算法解决的只能是数值计算问题\nD. 算法的每⼀步操作都必须明确⽆歧义"], "tgt": ["C"], "pred": "C"}
 {"src": ["微程序控制器⽐组合逻辑控制器速度要慢，主要是由于增加了从（ ）读取微指令的时间\nA. ⾼速缓存\nB. 控制存储器\nC. 指令寄存器\nD. 主存储器"], "tgt": ["B"], "pred": "B"}
 {"src": ["关闭Rip路由汇总的命令是\nA. auto-summary\nB. apply access-list 101 out\nC. no auto-summary\nD. no ip router"], "tgt": ["C"], "pred": "C"}
-{"src": ["计算机信息计量单位中的K代表\nA. 102\nB. 103\nC. 28\nD. 210"], "tgt": ["D"], "pred": "D"}
+{"src": ["计算机信息计量单位中的K代表\nA. 102\nB. 103\nC. 28\nD. 210"], "tgt": ["D"], "pred": "A"}
 {"src": ["下列属于私有地址的是\nA. 172．16．0．1\nB. 193．168．159．3\nC. 127．0．0．1\nD. 100．172．1．98"], "tgt": ["A"], "pred": "A"}
-{"src": ["在STAR-R2624上配置⼀个标准的访问列表，只允许所有源⾃B类地址：172.16.0.0的IP数据包通过，那么wildcard access-list mask将采⽤以下哪个是正确的\nA. 0.0.255.255\nB. 255.255.255.0\nC. 0.255.255.255\nD. 255.255.0.0"], "tgt": ["A"], "pred": "C"}
+{"src": ["在STAR-R2624上配置⼀个标准的访问列表，只允许所有源⾃B类地址：172.16.0.0的IP数据包通过，那么wildcard access-list mask将采⽤以下哪个是正确的\nA. 0.0.255.255\nB. 255.255.255.0\nC. 0.255.255.255\nD. 255.255.0.0"], "tgt": ["A"], "pred": "A"}
 {"src": ["瑞⼠计算机科学家沃思教授曾指岀：算法+数据结构=程序。这⾥的数据结构指的是\nA. 数据的紧凑结构和⾮紧凑结构\nB. 数据的线性结构和⾮线性结构\nC. 数据的顺序结构和链式结构\nD. 数据的逻辑结抅和存储结构"], "tgt": ["D"], "pred": "D"}
 {"src": ["OSI七层模型在数据封装时正确的协议数据单元排序是\nA. bit、frame、packet、segment\nB. frame、bit、segment、packet\nC. packet、frame、bit、segment\nD. segment、packet、frame、bit"], "tgt": ["D"], "pred": "A"}
 {"src": ["在下列⼏种存储器中，CPU可直接访问的是\nA. 主存储器\nB. 磁带\nC. 光盘\nD. 磁盘"], "tgt": ["A"], "pred": "A"}
@@ -165,10 +165,10 @@
 {"src": ["如果⼦⽹掩码是255.255.255.128，主机地址为195.16.15.14，则在该⼦⽹掩码下最多可以容纳多少个主机\nA. 30\nB. 126\nC. 62\nD. 254"], "tgt": ["B"], "pred": "C"}
 {"src": ["虚地址是\nA. 不存在的地址\nB. 磁盘地址\nC. ⽤户编程可使⽤的地址\nD. 主存地址"], "tgt": ["C"], "pred": "C"}
 {"src": ["下列选项中，属于⾮线性数据结构的是\nA. 栈\nB. ⼆叉排序树\nC. 线性表\nD. 队列"], "tgt": ["B"], "pred": "B"}
-{"src": ["关于指针运算符“*”的说法错误的是\nA. 运算结合性是⾃右向左\nB. 是单⽬前缀运算符\nC. 运算结果是运算对象对应的变量或数组元素等\nD. 运算对象只能是指针变量"], "tgt": ["D"], "pred": "D"}
+{"src": ["关于指针运算符“*”的说法错误的是\nA. 运算结合性是⾃右向左\nB. 是单⽬前缀运算符\nC. 运算结果是运算对象对应的变量或数组元素等\nD. 运算对象只能是指针变量"], "tgt": ["D"], "pred": "A"}
 {"src": ["在Excel⼯作表的单元格中计算⼀组数据后出现########，这是由于（ ）所致\nA. 单元格显示宽度不够\nB. 计算机公式出错\nC. 数据格式出错\nD. 计算数据出错"], "tgt": ["A"], "pred": "A"}
 {"src": ["TCP协议⼯作在以下的哪个层\nA. 应⽤层\nB. 传输层\nC. 物理层\nD. 链路层"], "tgt": ["B"], "pred": "B"}
-{"src": ["对⼀般⽤户，匿名FTP服务器不要求⽤户预先注册⽤户名和密码，登录时可作为⽤户名的是\nA. 匿名\nB. anonymous\nC. 电⼦邮件地址\nD. niming"], "tgt": ["B"], "pred": "B"}
+{"src": ["对⼀般⽤户，匿名FTP服务器不要求⽤户预先注册⽤户名和密码，登录时可作为⽤户名的是\nA. 匿名\nB. anonymous\nC. 电⼦邮件地址\nD. niming"], "tgt": ["B"], "pred": "C"}
 {"src": ["为了缩短指令中某个地址段的位数，有效的⽅法是采取\nA. 寄存器寻址\nB. ⽴即寻址\nC. 间接寻址\nD. 变址寻址"], "tgt": ["A"], "pred": "A"}
 {"src": ["原码乘法是\nA. ⽤原码表示操作数，然后直接相乘\nB. 被乘数⽤原码表示，乘数取绝对值，然后相乘\nC. 乘数⽤原码表示，被乘数取绝对值，然后相乘\nD. 先取操作数绝对值相乘，符号位单独处理"], "tgt": ["D"], "pred": "D"}
 {"src": ["如果 [X]补=11110011，则[-X]补是\nA. 11110011\nB. 00001100\nC. 01110011\nD. 00001101"], "tgt": ["D"], "pred": "D"}
@@ -180,7 +180,7 @@
 {"src": ["数据结构不包含的内容是\nA. 数据的存储结构\nB. 对数据施加的操作\nC. 数据的元素来源\nD. 数据的逻辑结构"], "tgt": ["C"], "pred": "C"}
 {"src": ["下列选项中，与数据存储结构直接相关的是\nA. 双向链表\nB. 有向图\nC. ⼆叉树\nD. 线性表"], "tgt": ["A"], "pred": "D"}
 {"src": ["下列不属于交换机配置模式的有\nA. 特权模式\nB. 端⼝模式\nC. 线路配置模式\nD. ⽤户模式"], "tgt": ["C"], "pred": "D"}
-{"src": ["若脂⽤双符号位，则发⽣正溢的特征是：双符号位为\nA. 1 0\nB. 1 1\nC. 0 1\nD. 0 0"], "tgt": ["C"], "pred": "B"}
+{"src": ["若脂⽤双符号位，则发⽣正溢的特征是：双符号位为\nA. 1 0\nB. 1 1\nC. 0 1\nD. 0 0"], "tgt": ["C"], "pred": "A"}
 {"src": ["在RMON规范中，定义了两种新的数据类型，这两种数据类型是\nA. DisplayString和RowStatus\nB. OwnerString和RowStatus\nC. DisplayString和EntryStatus\nD. OwnerString和EntryStatus"], "tgt": ["D"], "pred": "A"}
 {"src": ["计算机中处理数据的基本单位是\nA. 位\nB. 字⻓\nC. 字\nD. 字节"], "tgt": ["D"], "pred": "A"}
 {"src": ["下⾯功能是由OSI参考模型的哪层实现的：将发送⽅数据转换成接受⽅的数据格式\nA. 应⽤层\nB. 传输层\nC. 会话层\nD. 表示层"], "tgt": ["D"], "pred": "D"}

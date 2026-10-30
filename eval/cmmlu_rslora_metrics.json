@@ -1,7 +1,7 @@
 {
   "total": 204,
-  "correct": 159,
-  "wrong": 45,
+  "correct": 153,
+  "wrong": 51,
   "unparsed": 0,
-  "accuracy": 0.7794117647058824
+  "accuracy": 0.75
 }
