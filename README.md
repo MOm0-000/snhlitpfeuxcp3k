@@ -1,8 +1,8 @@
-# 实验 III：Qwen3-4B 中文医疗对话 QLoRA 本地微调
+# 实验 III：Qwen3-4B 中文医疗对话参数高效微调
 
-本仓库用于完成《自然语言处理 C》实验 III：**利用对话数据微调基础大模型——基于 Qwen3-4B-Instruct-2507 的中文医疗对话 QLoRA 本地微调**。
+本仓库用于完成《自然语言处理 C》实验 III：**利用对话数据微调基础大模型——基于 Qwen3-4B-Instruct-2507 的中文医疗对话本地微调**。
 
-实验以 **Qwen3-4B-Instruct-2507** 为基座模型，使用 **LLaMA-Factory** 完成 4-bit QLoRA 微调，并使用 **Transformers + PEFT** 对微调前后的模型进行统一推理。
+实验以 **Qwen3-4B-Instruct-2507** 为基座模型，使用 **LLaMA-Factory** 完成 4-bit 参数高效微调，并使用 **Transformers + PEFT** 对 Base、QLoRA、RS-LoRA 与 QOFT 四组模型进行统一推理和评测。
 
 实验包括：
 
@@ -10,10 +10,11 @@
 - 对话级训练集 / 验证集划分；
 - 多轮对话单轮化与 ShareGPT 格式转换；
 - Qwen3-4B 4-bit NF4 QLoRA 微调；
-- Base 与 QLoRA 模型医疗问答对比；
+- RS-LoRA 对比实验；
+- QOFT 非 LoRA 微调实验；
+- Base / QLoRA / RS-LoRA / QOFT 医疗问答统一评测；
 - Chinese-medical-dialogue ROUGE-1 / ROUGE-2 / ROUGE-L 评测；
-- CMMLU Computer Science 204 道题通用能力评测；
-- 追加 RS-LoRA 对比实验。
+- CMMLU Computer Science 204 道题通用能力评测。
 
 ---
 
@@ -77,7 +78,8 @@ RTX 5070 Laptop GPU 的 CUDA Compute Capability 为 12.0（sm120），因此本�
 .
 ├── configs/
 │   ├── qwen3_4b_qlora_align100.yaml
-│   └── qwen3_4b_qrslora_align100.yaml
+│   ├── qwen3_4b_qrslora_align100.yaml
+│   └── qwen3_4b_qoft_align100.yaml
 │
 ├── data/
 │   ├── raw/
@@ -94,22 +96,27 @@ RTX 5070 Laptop GPU 的 CUDA Compute Capability 为 12.0（sm120），因此本�
 │   ├── medical_100_base.jsonl
 │   ├── medical_100_lora.jsonl
 │   ├── medical_100_rslora.jsonl
+│   ├── medical_100_qoft.jsonl
 │   │
 │   ├── medical_base_rouge.json
 │   ├── medical_lora_rouge.json
 │   ├── medical_rslora_rouge.json
+│   ├── medical_qoft_rouge.json
 │   │
 │   ├── cmmlu_base.jsonl
 │   ├── cmmlu_lora.jsonl
 │   ├── cmmlu_rslora.jsonl
+│   ├── cmmlu_qoft.jsonl
 │   │
 │   ├── cmmlu_base_metrics.json
 │   ├── cmmlu_lora_metrics.json
 │   ├── cmmlu_rslora_metrics.json
+│   ├── cmmlu_qoft_metrics.json
 │   │
 │   ├── cmmlu_base_wrong.jsonl
 │   ├── cmmlu_lora_wrong.jsonl
-│   └── cmmlu_rslora_wrong.jsonl
+│   ├── cmmlu_rslora_wrong.jsonl
+│   └── cmmlu_qoft_wrong.jsonl
 │
 ├── models/
 │   └── Qwen3-4B-Instruct-2507/
@@ -118,7 +125,10 @@ RTX 5070 Laptop GPU 的 CUDA Compute Capability 为 12.0（sm120），因此本�
 │   ├── qwen3-4b-qlora-align100/
 │   │   ├── checkpoint-50/
 │   │   └── checkpoint-100/
-│   └── qwen3-4b-qrslora-align100/
+│   ├── qwen3-4b-qrslora-align100/
+│   │   ├── checkpoint-50/
+│   │   └── checkpoint-100/
+│   └── qwen3-4b-qoft-align100/
 │       ├── checkpoint-50/
 │       └── checkpoint-100/
 │
@@ -357,8 +367,6 @@ configs/qwen3_4b_qlora_align100.yaml
 
 训练时冻结 4-bit 量化后的基座模型参数，仅训练 LoRA 低秩适配器。
 
----
-
 ### 5.2 启动训练
 
 ```bash
@@ -405,14 +413,6 @@ Training runtime ≈ 535.3 s
 runs/qwen3-4b-qlora-align100/training_loss.png
 ```
 
-训练日志：
-
-```text
-runs/qwen3-4b-qlora-align100/trainer_log.jsonl
-runs/qwen3-4b-qlora-align100/trainer_state.json
-runs/qwen3-4b-qlora-align100/train_results.json
-```
-
 ---
 
 ## 6. Base 与 QLoRA 医疗问答评测
@@ -424,7 +424,7 @@ Base 和 QLoRA 使用相同的：
 - Chat Template；
 - 生成参数。
 
-区别仅为是否加载 LoRA adapter。
+区别仅为是否加载 QLoRA adapter。
 
 ### 6.1 Base
 
@@ -453,8 +453,6 @@ ROUGE-1 F1 = 0.1578
 ROUGE-2 F1 = 0.0131
 ROUGE-L F1 = 0.1062
 ```
-
----
 
 ### 6.2 QLoRA
 
@@ -488,7 +486,7 @@ ROUGE-L F1 = 0.1719
 
 ## 7. CMMLU Computer Science 统一评测
 
-按照实验指导书要求，Base、QLoRA 和追加实验 RS-LoRA 均使用完全相同的 CMMLU 推理设置。
+Base、QLoRA、RS-LoRA 和 QOFT 均使用完全相同的 CMMLU 推理设置。
 
 统一 System Prompt：
 
@@ -504,9 +502,7 @@ batch_size = 4
 do_sample = false
 ```
 
-`gen_peft.py` 使用贪心生成，因此三组模型的推理条件保持一致。
-
----
+`gen_peft.py` 使用贪心生成，因此四组模型的推理条件保持一致。
 
 ### 7.1 Base
 
@@ -540,8 +536,6 @@ Unparsed: 0
 Accuracy: 79.90%
 ```
 
----
-
 ### 7.2 QLoRA
 
 ```bash
@@ -564,14 +558,14 @@ python scripts/evaluate_cmmlu.py \
   --wrong-file eval/cmmlu_lora_wrong.jsonl
 ```
 
-结果：
+最新结果：
 
 ```text
 Total:    204
-Correct:  163
-Wrong:    41
+Correct:  159
+Wrong:    45
 Unparsed: 0
-Accuracy: 79.90%
+Accuracy: 77.94%
 ```
 
 ---
@@ -580,8 +574,8 @@ Accuracy: 79.90%
 
 | 模型 | ROUGE-1 | ROUGE-2 | ROUGE-L | CMMLU |
 |---|---:|---:|---:|---:|
-| Base Qwen3-4B | 0.1578 | 0.0131 | 0.1062 | 79.90% |
-| QLoRA | **0.2252** | **0.0391** | **0.1719** | **79.90%** |
+| Base Qwen3-4B | 0.1578 | 0.0131 | 0.1062 | **79.90%** |
+| QLoRA | **0.2252** | **0.0391** | **0.1719** | 77.94% |
 
 相对于 Base：
 
@@ -603,7 +597,13 @@ CMMLU Computer Science：
 
 ```text
 Base:  79.90%
-QLoRA: 79.90%
+QLoRA: 77.94%
+```
+
+QLoRA 的 CMMLU 准确率下降约：
+
+```text
+1.96 个百分点
 ```
 
 因此，本次 QLoRA 主实验表现为：
@@ -611,12 +611,10 @@ QLoRA: 79.90%
 ```text
 医疗领域生成能力明显提升
 +
-CMMLU Computer Science 总体准确率保持不变
+CMMLU Computer Science 准确率出现小幅下降
 ```
 
-说明在当前数据量、训练步数和超参数设置下，医疗领域 QLoRA 微调明显改善了模型在医疗问答上的文本匹配表现，同时没有观察到 CMMLU Computer Science 总体正确率的下降。
-
-需要注意的是，Base 与 QLoRA 虽然最终正确题数均为 163 / 204，但部分具体题目的模型决策可能发生变化，因此相同的总准确率并不代表两者输出完全相同。
+说明在当前数据量、训练步数和超参数设置下，医疗领域 QLoRA 微调显著改善了模型在医疗问答上的文本匹配表现，同时通用计算机知识评测存在一定程度的下降。
 
 ---
 
@@ -654,8 +652,6 @@ use_rslora: true
 ```
 
 因此该实验用于比较普通 LoRA 与 Rank-Stabilized LoRA 在相同训练条件下的表现。
-
----
 
 ### 9.1 RS-LoRA 训练
 
@@ -698,8 +694,6 @@ Train loss = 1.6248
 
 在相同的 100 步训练条件下，RS-LoRA 得到了更低的训练平均 loss。
 
----
-
 ### 9.2 RS-LoRA 医疗问答评测
 
 ```bash
@@ -728,11 +722,7 @@ ROUGE-2 F1 = 0.0410
 ROUGE-L F1 = 0.1804
 ```
 
----
-
 ### 9.3 RS-LoRA CMMLU 评测
-
-使用与 Base、QLoRA 完全相同的 System Prompt 与解码参数：
 
 ```bash
 python scripts/gen_peft.py \
@@ -766,45 +756,213 @@ Accuracy: 75.00%
 
 ---
 
-## 10. Base / QLoRA / RS-LoRA 总体比较
+## 10. 非 LoRA 方法：QOFT
 
-| 模型 | ROUGE-1 | ROUGE-2 | ROUGE-L | CMMLU |
-|---|---:|---:|---:|---:|
-| Base Qwen3-4B | 0.1578 | 0.0131 | 0.1062 | **79.90%** |
-| QLoRA | **0.2252** | 0.0391 | 0.1719 | **79.90%** |
-| RS-LoRA | 0.2227 | **0.0410** | **0.1804** | 75.00% |
+为满足“除 LoRA 外的其他大模型微调方法”的实验要求，本实验进一步进行了 **QOFT（Quantized Orthogonal Fine-Tuning）**。
+
+配置文件：
+
+```text
+configs/qwen3_4b_qoft_align100.yaml
+```
+
+QOFT 与 QLoRA 使用相同的：
+
+```text
+Base Model
+Training Data
+Training Samples
+4-bit Quantization
+NF4
+Double Quantization
+cutoff_len
+Batch Size
+Gradient Accumulation
+Effective Batch Size
+Learning Rate
+Max Steps
+Warmup Steps
+LR Scheduler
+Optimizer
+BF16
+Gradient Checkpointing
+Seed
+```
+
+QOFT 方法相关配置为：
+
+```yaml
+finetuning_type: oft
+oft_block_size: 32
+oft_target: all
+module_dropout: 0.0
+```
+
+因此 QOFT 与 QLoRA 的训练预算保持一致，主要变化为微调方法本身。
+
+### 10.1 QOFT 训练
+
+```bash
+llamafactory-cli train configs/qwen3_4b_qoft_align100.yaml
+```
+
+输出目录：
+
+```text
+runs/qwen3-4b-qoft-align100
+```
+
+最终使用：
+
+```text
+runs/qwen3-4b-qoft-align100/checkpoint-100
+```
+
+训练结果：
+
+```text
+Total optimization steps = 100
+Epoch = 0.8
+Train loss = 1.6102
+Training runtime ≈ 591.5 s
+```
+
+约为：
+
+```text
+9 min 52 s
+```
+
+### 10.2 QOFT 医疗问答评测
+
+```bash
+python scripts/gen_peft.py \
+  --model models/Qwen3-4B-Instruct-2507 \
+  --adapter runs/qwen3-4b-qoft-align100/checkpoint-100 \
+  --input eval/medical_100.jsonl \
+  --output eval/medical_100_qoft.jsonl \
+  --max-new-tokens 256 \
+  --batch-size 4
+```
+
+评测：
+
+```bash
+python scripts/evaluate_medical.py \
+  --pred eval/medical_100_qoft.jsonl \
+  --save eval/medical_qoft_rouge.json
+```
+
+结果：
+
+```text
+ROUGE-1 F1 = 0.2119
+ROUGE-2 F1 = 0.0393
+ROUGE-L F1 = 0.1772
+```
+
+### 10.3 QOFT CMMLU 评测
+
+```bash
+python scripts/gen_peft.py \
+  --model models/Qwen3-4B-Instruct-2507 \
+  --adapter runs/qwen3-4b-qoft-align100/checkpoint-100 \
+  --input eval/cmmlu_computer_science.jsonl \
+  --output eval/cmmlu_qoft.jsonl \
+  --max-new-tokens 32 \
+  --batch-size 4 \
+  --system-prompt "你是一名计算机科学考试助手。只输出正确选项的字母（A/B/C/D），不要解释，不要重复题干。"
+```
+
+评测：
+
+```bash
+python scripts/evaluate_cmmlu.py \
+  --pred eval/cmmlu_qoft.jsonl \
+  --save eval/cmmlu_qoft_metrics.json \
+  --wrong-file eval/cmmlu_qoft_wrong.jsonl
+```
+
+最终结果：
+
+```text
+Total:    204
+Correct:  162
+Wrong:    42
+Unparsed: 0
+Accuracy: 79.41%
+```
+
+QOFT 相比 Base：
+
+```text
+ROUGE-1: 0.1578 -> 0.2119
+ROUGE-2: 0.0131 -> 0.0393
+ROUGE-L: 0.1062 -> 0.1772
+
+CMMLU:
+79.90% -> 79.41%
+```
+
+说明 QOFT 在医疗问答三个 ROUGE 指标上均明显优于 Base，同时 CMMLU 仅下降 1 道题（163/204 -> 162/204）。
+
+---
+
+## 11. 四组实验总体比较
+
+| 模型 | Train Loss | ROUGE-1 | ROUGE-2 | ROUGE-L | CMMLU |
+|---|---:|---:|---:|---:|---:|
+| Base Qwen3-4B | — | 0.1578 | 0.0131 | 0.1062 | **79.90%** |
+| QLoRA | 1.7281 | **0.2252** | 0.0391 | 0.1719 | 77.94% |
+| RS-LoRA | 1.6248 | 0.2227 | **0.0410** | **0.1804** | 75.00% |
+| QOFT | **1.6102** | 0.2119 | 0.0393 | 0.1772 | 79.41% |
 
 从医疗测试结果看：
 
-- 普通 QLoRA 的 ROUGE-1 最高；
-- RS-LoRA 的 ROUGE-2 和 ROUGE-L 略高于普通 QLoRA；
-- 两种 LoRA 方法均显著优于 Base。
+- QLoRA 的 **ROUGE-1 最高**；
+- RS-LoRA 的 **ROUGE-2 和 ROUGE-L 最高**；
+- QOFT 的三个 ROUGE 指标均明显高于 Base；
+- 三种微调方法均显著改善了医疗问答文本匹配指标。
 
 从 CMMLU Computer Science 看：
 
 ```text
-Base:     79.90%
-QLoRA:    79.90%
-RS-LoRA:  75.00%
+Base:     79.90%  (163 / 204)
+QLoRA:    77.94%  (159 / 204)
+RS-LoRA:  75.00%  (153 / 204)
+QOFT:     79.41%  (162 / 204)
 ```
 
-普通 QLoRA 在提高医疗问答指标的同时保持了基座模型的 CMMLU 总体正确率。
+在三种微调方法中：
 
-RS-LoRA 虽然取得了较低的训练 loss，并在 ROUGE-2、ROUGE-L 上略高于普通 QLoRA，但 CMMLU Computer Science 正确率下降至 75.00%。
+- QOFT 对 CMMLU 的保持最好，仅比 Base 少答对 1 道题；
+- QLoRA 比 Base 少答对 4 道题；
+- RS-LoRA 比 Base 少答对 10 道题。
 
-因此，当前实验结果表明：
+训练 loss：
+
+```text
+QOFT:     1.6102
+RS-LoRA:  1.6248
+QLoRA:    1.7281
+```
+
+训练 loss 最低的是 QOFT，但其 ROUGE-1 并不是最高；RS-LoRA 的训练 loss 低于 QLoRA，但 CMMLU 下降更明显。因此，本实验结果再次说明：
 
 ```text
 更低的训练 loss 并不必然对应所有下游任务指标同时提升。
 ```
 
-在本实验设置下，普通 QLoRA 在医疗领域提升与通用能力保持之间表现得更加均衡。
+综合来看：
 
-RS-LoRA 在部分医疗生成指标上进一步改善，但也表现出更明显的通用知识能力下降。
+- **QLoRA**：医疗 ROUGE-1 最好，主实验领域提升明显；
+- **RS-LoRA**：ROUGE-2 / ROUGE-L 最好，但 CMMLU 下降最明显；
+- **QOFT**：作为非 LoRA 微调方法，医疗指标明显超过 Base，同时对 CMMLU 的保持最好；
+- **Base**：作为统一对照组。
 
 ---
 
-## 11. 推理实现说明
+## 12. 推理实现说明
 
 批量推理脚本：
 
@@ -838,6 +996,12 @@ RS-LoRA：
 adapter = runs/qwen3-4b-qrslora-align100/checkpoint-100
 ```
 
+QOFT：
+
+```text
+adapter = runs/qwen3-4b-qoft-align100/checkpoint-100
+```
+
 模型生成采用：
 
 ```text
@@ -852,13 +1016,13 @@ Qwen3 Chat Template 调用时关闭 thinking：
 enable_thinking = false
 ```
 
-从而保证 Base、QLoRA、RS-LoRA 使用统一的非思考模式完成评测。
+从而保证 Base、QLoRA、RS-LoRA、QOFT 使用统一的非思考模式完成评测。
 
 ---
 
-## 12. 评测方法
+## 13. 评测方法
 
-### 12.1 医疗问答
+### 13.1 医疗问答
 
 评测脚本：
 
@@ -882,9 +1046,7 @@ ROUGE-L F1
 
 最终报告 100 条医疗问答样本的平均指标。
 
----
-
-### 12.2 CMMLU
+### 13.2 CMMLU
 
 评测脚本：
 
@@ -923,7 +1085,7 @@ accuracy
 
 ---
 
-## 13. 实验结果文件
+## 14. 实验结果文件
 
 ### Base
 
@@ -958,9 +1120,20 @@ eval/cmmlu_rslora_metrics.json
 eval/cmmlu_rslora_wrong.jsonl
 ```
 
+### QOFT
+
+```text
+eval/medical_100_qoft.jsonl
+eval/medical_qoft_rouge.json
+
+eval/cmmlu_qoft.jsonl
+eval/cmmlu_qoft_metrics.json
+eval/cmmlu_qoft_wrong.jsonl
+```
+
 ---
 
-## 14. 大文件说明
+## 15. 大文件说明
 
 以下文件体积较大，因此没有完整保存在 GitHub 中：
 
@@ -988,8 +1161,9 @@ Chinese-medical-dialogue 原始数据
 错误样本
 训练日志
 训练曲线
-LoRA adapter
+QLoRA adapter
 RS-LoRA adapter
+QOFT adapter
 环境依赖
 ```
 
@@ -997,7 +1171,7 @@ RS-LoRA adapter
 
 ---
 
-## 15. 实验流程
+## 16. 实验流程
 
 完整实验流程如下：
 
@@ -1020,13 +1194,13 @@ Base 模型评测
     ↓
 100 步 QLoRA 训练
     ↓
-加载 checkpoint-100
-    ↓
 QLoRA 医疗 / CMMLU 评测
     ↓
-RS-LoRA 追加实验
+RS-LoRA 对比实验
     ↓
-统一指标比较与结果分析
+QOFT 非 LoRA 微调实验
+    ↓
+Base / QLoRA / RS-LoRA / QOFT 统一指标比较与结果分析
 ```
 
-本仓库中的实验报告将基于上述训练日志、推理结果、评测指标及实际生成案例进一步分析 QLoRA 微调前后的医疗领域能力与通用知识能力变化。
+本仓库中的实验报告将基于上述训练日志、推理结果、评测指标及实际生成案例进一步分析不同参数高效微调方法在医疗领域能力提升与通用知识保持之间的差异。
