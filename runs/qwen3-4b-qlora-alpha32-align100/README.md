@@ -20,7 +20,7 @@ should probably proofread and complete it, then remove this comment. -->
 
 This model is a fine-tuned version of [models/Qwen3-4B-Instruct-2507](https://huggingface.co/models/Qwen3-4B-Instruct-2507) on the med_train_2k dataset.
 It achieves the following results on the evaluation set:
-- Loss: 1.3399
+- Loss: 1.3686
 
 ## Model description
 
@@ -56,6 +56,7 @@ The following hyperparameters were used during training:
 |:-------------:|:-----:|:----:|:---------------:|
 | 1.3225        | 0.4   | 50   | 1.3751          |
 | 1.3725        | 0.8   | 100  | 1.3399          |
+| 1.4538        | 0.808 | 101  | 1.3686          |
 
 
 ### Framework versions

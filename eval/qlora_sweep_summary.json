@@ -1,0 +1,58 @@
+[
+  {
+    "experiment": "lr5e5",
+    "changed_param": "learning_rate",
+    "changed_value": 5e-05,
+    "eval_loss": 1.420114278793335,
+    "train_loss": 1.8612411999702454,
+    "rouge_1": 0.22036915801032744,
+    "rouge_2": 0.042323901582560206,
+    "rouge_l": 0.1779408795036094,
+    "cmmlu_accuracy": 0.7647058823529411,
+    "cmmlu_correct": 156,
+    "cmmlu_total": 204,
+    "status": "ok"
+  },
+  {
+    "experiment": "lr7p5e5",
+    "changed_param": "learning_rate",
+    "changed_value": 7.5e-05,
+    "eval_loss": 1.3851678371429443,
+    "train_loss": 1.777909940481186,
+    "rouge_1": 0.22225288956031522,
+    "rouge_2": 0.035901292684441845,
+    "rouge_l": 0.17408606870957297,
+    "cmmlu_accuracy": 0.7892156862745098,
+    "cmmlu_correct": 161,
+    "cmmlu_total": 204,
+    "status": "ok"
+  },
+  {
+    "experiment": "lr1p5e4",
+    "changed_param": "learning_rate",
+    "changed_value": 0.00015,
+    "eval_loss": 1.3437660932540894,
+    "train_loss": 1.6702858984470368,
+    "rouge_1": 0.21799297286628153,
+    "rouge_2": 0.037929128465900866,
+    "rouge_l": 0.171846178131421,
+    "cmmlu_accuracy": 0.7696078431372549,
+    "cmmlu_correct": 157,
+    "cmmlu_total": 204,
+    "status": "ok"
+  },
+  {
+    "experiment": "rank4",
+    "changed_param": "lora_rank",
+    "changed_value": 4,
+    "eval_loss": 1.3617327213287354,
+    "train_loss": 1.721599063873291,
+    "rouge_1": 0.2227279161749542,
+    "rouge_2": 0.03811659243138295,
+    "rouge_l": 0.17331995582059204,
+    "cmmlu_accuracy": 0.7794117647058824,
+    "cmmlu_correct": 159,
+    "cmmlu_total": 204,
+    "status": "ok"
+  }
+]
